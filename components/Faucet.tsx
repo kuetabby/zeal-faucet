@@ -37,11 +37,6 @@ export default function Faucet() {
     setSuccessMessage(data.message);
   };
 
-  console.log(
-    process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY,
-    "process.env private key"
-  );
-
   return (
     <>
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
