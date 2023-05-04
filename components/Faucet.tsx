@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormEvent } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import SuccessModal from "./SuccessModal";
 import ErrorModal from "./ErrorModal";
+
+import wallet from "../src/wallet";
+import { ethers } from "ethers";
+import transferCoin from "../src/transferCoin";
 
 export default function Faucet() {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -17,24 +21,55 @@ export default function Faucet() {
     setIsDisabled(false);
   };
 
+  // const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   // disable submit button
+  //   setIsDisabled(true);
+  //   // send request to faucet
+  //   const response = await fetch("/api/faucet", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       address: event.currentTarget.address.value,
+  //       hcaptchaToken,
+  //     }),
+  //   });
+  //   // parse response
+  //   const data = await response.json();
+  //   // if error
+  //   if (response.status != 200) return setErrorMessage(data.message);
+  //   // success!
+  //   setSuccessMessage(data.message);
+  // };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    console.log("hit request");
     event.preventDefault();
-    // disable submit button
-    setIsDisabled(true);
-    // send request to faucet
-    const response = await fetch("/api/faucet", {
-      method: "POST",
-      body: JSON.stringify({
-        address: event.currentTarget.address.value,
-        hcaptchaToken,
-      }),
-    });
-    // parse response
-    const data = await response.json();
-    // if error
-    if (response.status != 200) return setErrorMessage(data.message);
-    // success!
-    setSuccessMessage(data.message);
+    const address = event.currentTarget.address.value;
+    const request = await transferCoin(address);
+    const response = await request;
+    console.log(response, "response");
+    return response;
+  };
+
+  const provider = new ethers.providers.JsonRpcProvider(
+    "http://31.220.54.49:8545"
+  );
+  const wallet = new ethers.Wallet(
+    "c39a27e3ab55fc54c226ab96359fefd47a5efba32d9245be52735d048d085aae",
+    provider
+  );
+
+  useEffect(() => {
+    onBalance();
+  }, []);
+
+  const onBalance = async () => {
+    try {
+      const request = await wallet.getBalance();
+      const response = await request.toString();
+      console.log(response, "response");
+      return response;
+    } catch (error) {}
   };
 
   return (
@@ -69,17 +104,17 @@ export default function Faucet() {
                 />
               </div>
             </div>
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
               <HCaptcha
                 sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY as string}
                 onVerify={(token, ekey) =>
                   handleVerificationSuccess(token, ekey)
                 }
               />
-            </div>
+            </div> */}
             <div>
               <button
-                disabled={isDisabled}
+                // disabled={isDisabled}
                 type="submit"
                 className="disabled:opacity-25 group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
