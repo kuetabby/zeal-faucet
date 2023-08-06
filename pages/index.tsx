@@ -5,8 +5,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Ifrit Faucet</title>
-        <meta name="description" content="Ifrit Testnet Faucet" />
+        <title>ION Faucet</title>
+        <meta name="description" content="ION Testnet Faucet" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="favicon.ico" />
       </Head>
