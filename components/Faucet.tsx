@@ -11,9 +11,7 @@ export default function Faucet() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleVerificationSuccess = async (token: string, ekey: string) => {
-    // set hcaptcha token
     setHcaptchaToken(token);
-    // enable submit button
     setIsDisabled(false);
   };
 
