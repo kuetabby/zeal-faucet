@@ -25,7 +25,6 @@ export default async function handler(
   const { address, hcaptchaToken } = JSON.parse(req.body);
   // verify address
   const isAddress = ethers.utils.isAddress(address);
-  console.log(address, "address");
   // if invalid address
   if (!isAddress) return res.status(400).json({ message: "Invalid Address" });
   // verify the captcha
