@@ -5,8 +5,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Ventura Faucet</title>
-        <meta name="description" content="Ventura Network Faucet" />
+        <title>ACE Faucet</title>
+        <meta name="description" content="Ace Chain Faucet" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="favicon.ico" />
       </Head>
