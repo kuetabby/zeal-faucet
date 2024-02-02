@@ -5,8 +5,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>ACE Faucet</title>
-        <meta name="description" content="Ace Chain Faucet" />
+        <title>Avernus Faucet</title>
+        <meta name="description" content="Avernus Faucet" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="favicon.ico" />
       </Head>
